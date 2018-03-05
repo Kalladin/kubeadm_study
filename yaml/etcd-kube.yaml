@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/config.hash: 7278f85057e8bf5cb81c9f96d3b25320
+    kubernetes.io/config.mirror: 7278f85057e8bf5cb81c9f96d3b25320
+    kubernetes.io/config.seen: 2018-03-05T00:07:16.263195777-06:00
+    kubernetes.io/config.source: file
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  creationTimestamp: 2018-03-05T06:08:32Z
+  labels:
+    component: etcd
+    tier: control-plane
+  name: etcd-kube-master-01
+  namespace: kube-system
+  resourceVersion: "381"
+  selfLink: /api/v1/namespaces/kube-system/pods/etcd-kube-master-01
+  uid: a1b8fcaf-203b-11e8-a8e9-52540005e84e
+spec:
+  containers:
+  - command:
+    - etcd
+    - --listen-client-urls=http://127.0.0.1:2379
+    - --advertise-client-urls=http://127.0.0.1:2379
+    - --data-dir=/var/lib/etcd
+    image: gcr.io/google_containers/etcd-amd64:3.1.11
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /health
+        port: 2379
+        scheme: HTTP
+      initialDelaySeconds: 15
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 15
+    name: etcd
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/lib/etcd
+      name: etcd
+  dnsPolicy: ClusterFirst
+  hostNetwork: true
+  nodeName: kube-master-01
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /var/lib/etcd
+      type: DirectoryOrCreate
+    name: etcd
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:22Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://d70830b72d3ac3e3432e3613e01272dbb0d880927fa0bfed569e08617e562abd
+    image: gcr.io/google_containers/etcd-amd64:3.1.11
+    imageID: docker-pullable://gcr.io/google_containers/etcd-amd64@sha256:54889c08665d241e321ca5ce976b2df0f766794b698d53faf6b7dacb95316680
+    lastState: {}
+    name: etcd
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-03-05T06:07:22Z
+  hostIP: 10.128.112.146
+  phase: Running
+  podIP: 10.128.112.146
+  qosClass: BestEffort
+  startTime: 2018-03-05T06:07:21Z

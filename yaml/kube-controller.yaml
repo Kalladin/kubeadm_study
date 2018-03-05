@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/config.hash: 6faf00d6d2ffe6232cac551d72fafc25
+    kubernetes.io/config.mirror: 6faf00d6d2ffe6232cac551d72fafc25
+    kubernetes.io/config.seen: 2018-03-05T00:07:16.263208367-06:00
+    kubernetes.io/config.source: file
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  creationTimestamp: 2018-03-05T06:08:27Z
+  labels:
+    component: kube-controller-manager
+    tier: control-plane
+  name: kube-controller-manager-kube-master-01
+  namespace: kube-system
+  resourceVersion: "382"
+  selfLink: /api/v1/namespaces/kube-system/pods/kube-controller-manager-kube-master-01
+  uid: 9ebe7b53-203b-11e8-a8e9-52540005e84e
+spec:
+  containers:
+  - command:
+    - kube-controller-manager
+    - --controllers=*,bootstrapsigner,tokencleaner
+    - --kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --root-ca-file=/etc/kubernetes/pki/ca.crt
+    - --leader-elect=true
+    - --use-service-account-credentials=true
+    - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+    - --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt
+    - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
+    - --address=127.0.0.1
+    - --allocate-node-cidrs=true
+    - --cluster-cidr=192.168.0.0/16
+    - --node-cidr-mask-size=24
+    image: gcr.io/google_containers/kube-controller-manager-amd64:v1.9.3
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: 10252
+        scheme: HTTP
+      initialDelaySeconds: 15
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 15
+    name: kube-controller-manager
+    resources:
+      requests:
+        cpu: 200m
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+      name: flexvolume-dir
+    - mountPath: /etc/kubernetes/pki
+      name: k8s-certs
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: ca-certs
+      readOnly: true
+    - mountPath: /etc/kubernetes/controller-manager.conf
+      name: kubeconfig
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  hostNetwork: true
+  nodeName: kube-master-01
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/pki
+      type: DirectoryOrCreate
+    name: k8s-certs
+  - hostPath:
+      path: /etc/ssl/certs
+      type: DirectoryOrCreate
+    name: ca-certs
+  - hostPath:
+      path: /etc/kubernetes/controller-manager.conf
+      type: FileOrCreate
+    name: kubeconfig
+  - hostPath:
+      path: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+      type: DirectoryOrCreate
+    name: flexvolume-dir
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:23Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://bd9fd4448451c77e98ddad0b30a27399b4cd57c12a21d03212b58fa42dce96d1
+    image: gcr.io/google_containers/kube-controller-manager-amd64:v1.9.3
+    imageID: docker-pullable://gcr.io/google_containers/kube-controller-manager-amd64@sha256:3ac295ae3e78af5c9f88164ae95097c2d7af03caddf067cb35599769d0b7251e
+    lastState: {}
+    name: kube-controller-manager
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-03-05T06:07:22Z
+  hostIP: 10.128.112.146
+  phase: Running
+  podIP: 10.128.112.146
+  qosClass: Burstable
+  startTime: 2018-03-05T06:07:21Z

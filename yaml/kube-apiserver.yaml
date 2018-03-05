@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/config.hash: 2fe8cc85d094ef3f1073799d95862222
+    kubernetes.io/config.mirror: 2fe8cc85d094ef3f1073799d95862222
+    kubernetes.io/config.seen: 2018-03-05T00:07:16.263205824-06:00
+    kubernetes.io/config.source: file
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  creationTimestamp: 2018-03-05T06:08:51Z
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver-kube-master-01
+  namespace: kube-system
+  resourceVersion: "408"
+  selfLink: /api/v1/namespaces/kube-system/pods/kube-apiserver-kube-master-01
+  uid: ad0be7b1-203b-11e8-a8e9-52540005e84e
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --requestheader-allowed-names=front-proxy-client
+    - --service-account-key-file=/etc/kubernetes/pki/sa.pub
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --requestheader-group-headers=X-Remote-Group
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --service-cluster-ip-range=10.96.0.0/12
+    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+    - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+    - --insecure-port=0
+    - --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota
+    - --allow-privileged=true
+    - --requestheader-username-headers=X-Remote-User
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --secure-port=6443
+    - --enable-bootstrap-token-auth=true
+    - --advertise-address=10.128.112.146
+    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+    - --authorization-mode=Node,RBAC
+    - --etcd-servers=http://127.0.0.1:2379
+    image: gcr.io/google_containers/kube-apiserver-amd64:v1.9.3
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 10.128.112.146
+        path: /healthz
+        port: 6443
+        scheme: HTTPS
+      initialDelaySeconds: 15
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 15
+    name: kube-apiserver
+    resources:
+      requests:
+        cpu: 250m
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /etc/kubernetes/pki
+      name: k8s-certs
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: ca-certs
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  hostNetwork: true
+  nodeName: kube-master-01
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes/pki
+      type: DirectoryOrCreate
+    name: k8s-certs
+  - hostPath:
+      path: /etc/ssl/certs
+      type: DirectoryOrCreate
+    name: ca-certs
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:24Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: 2018-03-05T06:07:21Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://c783247bedbf703438751391e187f1a9ab04bb0a4100528c42c60d13b3c6fedf
+    image: gcr.io/google_containers/kube-apiserver-amd64:v1.9.3
+    imageID: docker-pullable://gcr.io/google_containers/kube-apiserver-amd64@sha256:a5382344aa373a90bc87d3baa4eda5402507e8df5b8bfbbad392c4fff715f043
+    lastState: {}
+    name: kube-apiserver
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2018-03-05T06:07:22Z
+  hostIP: 10.128.112.146
+  phase: Running
+  podIP: 10.128.112.146
+  qosClass: Burstable
+  startTime: 2018-03-05T06:07:21Z
