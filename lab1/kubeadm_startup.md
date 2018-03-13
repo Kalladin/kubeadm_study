@@ -1,4 +1,18 @@
 
+# Lab 1: Kubernetes Cluster
+
+# Purposes
+1. Create kubernetes cluster by kubeadm
+2. Apply `calico` as the network solution
+3. Find how the kubeadm start components below:
+- `kube-apiserver`
+- `kubelet`
+- `etcd`
+- `kube-controller-manager`
+- `kube-schedular`
+4. Find out components starting flags, know the meaning of the flags.
+5. (Optional.) Know how to use systemd by systemdctl and how to write a systemd unit file
+
 # Calico
 
 ## Apply network solution
@@ -224,7 +238,7 @@ Pod
 
 ### Settings Location
 template:
-`/etc/kubernetes/manifests/kube-schedular.yaml`
+`/etc/kubernetes/manifests/etcd.yaml`
 
 ### Settings Parameters
 
@@ -238,8 +252,3 @@ template:
 - --advertise-client-urls=http://127.0.0.1:2379
 - --data-dir=/var/lib/etcd
 ```
-
-## kube-dns
-
-### Deploy
-DaemonSet

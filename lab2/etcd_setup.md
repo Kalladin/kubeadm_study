@@ -1,16 +1,20 @@
+# Lab 2: Etcd Cluster
+
+# Purposes
+1. Setup up a external secure etcd cluster (secure for peer connection, client/server verify) with at least 3 nodes.
+2. Switch kubeadm inited etcd to the external etcd cluster
+3. Disaster recovery: take a snapshot, then kill 2 nodes processes & remove the datas from the etcd cluster, then bring them back.
+
 # Helpful Docs
 
 - configuring etcd & apiserver
 https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
-
 - etcdctl
 https://coreos.com/etcd/docs/latest/dev-guide/interacting_v3.html
 - etcd launch setup
 https://github.com/coreos/etcd/blob/master/Documentation/op-guide/clustering.md
-
 - etcd security explaination
 https://github.com/coreos/etcd/blob/master/Documentation/op-guide/security.md
-
 - etcd disaster recovery
 https://github.com/coreos/etcd/blob/master/Documentation/op-guide/recovery.md#restoring-a-cluster
 
