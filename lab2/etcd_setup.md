@@ -235,6 +235,7 @@ etcd --name infra2.2 --initial-advertise-peer-urls https://10.128.112.155:2380 \
 - setup external etcd, switch api-server to new etcd endpoints and found all old resources are gone.
 - snapshot + restore
 - if the k8s cluster is not setup yet, `kubeadm init` provides flag `--config` to set external etcd.
+- (not test yet) use mirror https://github.com/coreos/etcd/blob/master/etcdctl/doc/mirror_maker.md
 
 ## Etcd Version Should Match the Corresponding Kubeadm
 - use v3.3.2 at first, which occurs connection reject issue
